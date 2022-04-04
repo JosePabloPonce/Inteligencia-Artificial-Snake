@@ -82,16 +82,16 @@ def drawGrid(surface): #funcion para dibujar la comida en la superficie
     for y in range(0, int(grid_height)):
         for x in range(0, int(grid_width)):
             if (x+y)%2 == 0:
-                r = pygame.Rect((x*gridsize, y*gridsize), (gridsize,gridsize))
-                pygame.draw.rect(surface,(93,216,228), r)
+                r = pygame.Rect((x*gridsize, y*gridsize), (gridsize,gridsize)) 
+                pygame.draw.rect(surface,(13,141,30), r) #pintar verde oscuro mapa
             else:
                 rr = pygame.Rect((x*gridsize, y*gridsize), (gridsize,gridsize))
-                pygame.draw.rect(surface, (84,194,205), rr)
+                pygame.draw.rect(surface, (94,228,11), rr) #pintar verde claro mapa
 
-screen_width = 480
-screen_height = 480
+screen_width = 840
+screen_height = 840
 
-gridsize = 20
+gridsize = 12
 grid_width = screen_width/gridsize
 grid_height = screen_height/gridsize
 
