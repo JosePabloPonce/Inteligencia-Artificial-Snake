@@ -1,4 +1,14 @@
-#Referencia https://www.youtube.com/watch?v=9bBgyOkoBQ0&ab_channel=Kite
+'''
+Jose Pablo Ponce
+Gabriel Quiroz
+Guido Padilla
+Oscar Paredez
+Proyecto#1
+Inteligencia Artificial
+
+Referencia https://www.youtube.com/watch?v=9bBgyOkoBQ0&ab_channel=Kite
+'''
+
 
 import pygame
 import sys
@@ -12,7 +22,7 @@ class Snake():
         self.color = (17, 24, 47) #color
         self.score = 0 #marcador iniciando en 0
 
-    def get_head_position(self):
+    def initialPosition(self):
         return self.positions[0]  #retorna la posicion inicial de la serpiente
 
     def turn(self, point):
@@ -22,7 +32,7 @@ class Snake():
             self.direction = point
 
     def move(self):
-        cur = self.get_head_position() #obtener posicion de cabeza
+        cur = self.initialPosition() #obtener posicion de cabeza
         x,y = self.direction #se obtiene la direccion en la que esta
         new = (((cur[0]+(x*gridsize))%screen_width), (cur[1]+(y*gridsize))%screen_height) #se ubica la nueva loc de la cabeza
 
@@ -49,7 +59,7 @@ class Snake():
             pygame.draw.rect(surface, self.color, r)
             pygame.draw.rect(surface, (93,216, 228), r, 1)
 
-    def handle_keys(self):
+    def playerMovement(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -64,13 +74,13 @@ class Snake():
                 elif event.key == pygame.K_RIGHT:
                     self.turn(right)
 
-class Food():
+class Points():
     def __init__(self):
         self.position = (0,0) #posicion
         self.color = (223, 163, 49) #color
-        self.randomize_position() #posicion inciaial aleatoria
+        self.randomPosition() #posicion inciaial aleatoria
 
-    def randomize_position(self):
+    def randomPosition(self):
         self.position = (random.randint(0, grid_width-1)*gridsize, random.randint(0, grid_height-1)*gridsize) #posicion aleatoria
 
     def draw(self, surface):
@@ -78,7 +88,7 @@ class Food():
         pygame.draw.rect(surface, self.color, r)
         pygame.draw.rect(surface, (93, 216, 228), r, 1)
 
-def drawGrid(surface): #funcion para dibujar la comida en la superficie
+def drawPoints(surface): #funcion para dibujar los puntos en la superficie
     for y in range(0, int(grid_height)):
         for x in range(0, int(grid_width)):
             if (x+y)%2 == 0:
@@ -108,24 +118,24 @@ def main():
 
     surface = pygame.Surface(screen.get_size())
     surface = surface.convert()
-    drawGrid(surface)
+    drawPoints(surface)
 
     snake = Snake()
-    food = Food()
+    points = Points()
 
     myfont = pygame.font.SysFont("monospace",16)
 
     while (True):
         clock.tick(10) #reloj seteado a 10 frames por segundo
-        snake.handle_keys() #maneja los eventos cuando se hace click
-        drawGrid(surface) #se rellena la superficie de azul
+        snake.playerMovement() #maneja los eventos cuando se hace click
+        drawPoints(surface) #se rellena la superficie de azul
         snake.move() #se mueve la serpiente como hagan click
-        if snake.get_head_position() == food.position: #si la cabeza toca la comida aumenta en 1
+        if snake.initialPosition() == points.position: #si la cabeza toca la comida aumenta en 1
             snake.length += 1
             snake.score += 1
-            food.randomize_position()
+            points.randomPosition()
         snake.draw(surface) #se dibuja serpiente
-        food.draw(surface)  #se dibuja comida
+        points.draw(surface)  #se dibuja comida
         #handle events
         screen.blit(surface, (0,0)) #se actualiza la superficie
         text = myfont.render("Score {0}".format(snake.score), 1, (0,0,0)) #se muestra en pantalla puntuacion
