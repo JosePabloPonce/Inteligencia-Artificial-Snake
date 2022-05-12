@@ -6,6 +6,7 @@ Oscar Paredez
 Proyecto#1
 Inteligencia Artificial
 Referencia https://www.youtube.com/watch?v=9bBgyOkoBQ0&ab_channel=Kite
+
 '''
 
 import collections

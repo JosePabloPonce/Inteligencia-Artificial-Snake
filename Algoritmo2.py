@@ -6,6 +6,7 @@ Guido Padilla
 Oscar Paredez
 Proyecto#1
 Inteligencia Artificial
+
 '''
 from pygame import display, time, draw, QUIT, init, KEYDOWN, K_a, K_s, K_d, K_w
 from random import randint
